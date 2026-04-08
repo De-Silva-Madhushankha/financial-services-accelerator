@@ -1773,6 +1773,9 @@ components:
         - $ref: '#/components/schemas/FailedResponseInConsentAuthorize'
     SuccessResponseConsentRevocationData:
       type: object
+      required:
+        - revocationStatusName
+        - requireTokenRevocation
       properties:
         revocationStatusName:
           type: string
@@ -1797,11 +1800,16 @@ components:
           description: Enriched search result
     SuccessResponseWithDetailedConsentData:
       type: object
+      required:
+        - consentResource
       properties:
         consentResource:
           $ref: '#/components/schemas/DetailedConsentResourceData'
     SuccessResponsePreProcessFileUploadData:
       type: object
+      required:
+        - consentStatus
+        - userId
       properties:
         consentStatus:
           type: string
@@ -1822,6 +1830,11 @@ components:
           $ref: '#/components/schemas/PersistAuthorizedConsent'
     PersistAuthorizedConsent:
       type: object
+      required:
+        - consentId
+        - isApproved
+        - consentResource
+        - userGrantedData
       properties:
         consentId:
           type: string
@@ -1833,6 +1846,8 @@ components:
           $ref: '#/components/schemas/StoredDetailedConsentResourceData'
     UserGrantedData:
       type: object
+      required:
+        - userId
       properties:
         requestParameters:
           type: object
@@ -1865,7 +1880,7 @@ components:
       type: object
       properties:
         consentResource:
-          $ref: '#/components/schemas/DetailedConsentResourceDataWithAmendments'
+          $ref: '#/components/schemas/'
     DetailedConsentResourceData:
       type: object
       required:
@@ -1898,6 +1913,10 @@ components:
             $ref: '#/components/schemas/Authorization'
     DetailedConsentResourceDataWithAmendments:
       type: object
+      required:
+        - type
+        - status
+        - receipt
       properties:
         type:
           type: string
@@ -1924,6 +1943,12 @@ components:
             $ref: '#/components/schemas/AmendedAuthorization'
     StoredBasicConsentResourceData:
       type: object
+      required:
+        - id
+        - receipt
+        - clientId
+        - type
+        - status
       properties:
         id:
           type: string
