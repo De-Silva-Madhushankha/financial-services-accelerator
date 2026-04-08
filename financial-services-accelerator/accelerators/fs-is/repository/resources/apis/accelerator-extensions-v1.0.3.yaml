@@ -2014,6 +2014,7 @@ components:
       required:
       - type
       - status
+      - userId
       properties:
         userId:
           type: string
@@ -2027,6 +2028,10 @@ components:
             $ref: '#/components/schemas/Resource'
     AmendedAuthorization:
       type: object
+      required:
+        - id
+        - type
+        - status
       properties:
         id:
           type: string
@@ -2044,6 +2049,10 @@ components:
             $ref: '#/components/schemas/AmendedResource'
     StoredAuthorization:
       type: object
+      required:
+        - id
+        - type
+        - status
       properties:
         id:
           type: string
@@ -2059,6 +2068,10 @@ components:
             $ref: '#/components/schemas/StoredResource'
     Resource:
       type: object
+      required:
+        - accountId
+        - status
+        - permission
       properties:
         accountId:
           type: string
@@ -2068,6 +2081,9 @@ components:
           type: string
     AmendedResource:
       type: object
+      required:
+        - id
+        - status
       properties:
         id:
           type: string
@@ -2077,6 +2093,10 @@ components:
           type: string
     StoredResource:
       type: object
+      required:
+        - id
+        - accountId
+        - status
       properties:
         id:
           type: string
