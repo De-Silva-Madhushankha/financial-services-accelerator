@@ -1781,7 +1781,7 @@ components:
           type: string
           description: Name for the revoked status
         requireTokenRevocation:
-          type: string
+          type: boolean
           description: Require access token to be revoked
     SuccessResponseForResponseAlternationData:
       type: object
