@@ -1880,7 +1880,7 @@ components:
       type: object
       properties:
         consentResource:
-          $ref: '#/components/schemas/'
+          $ref: '#/components/schemas/DetailedConsentResourceDataWithAmendments'
     DetailedConsentResourceData:
       type: object
       required:
