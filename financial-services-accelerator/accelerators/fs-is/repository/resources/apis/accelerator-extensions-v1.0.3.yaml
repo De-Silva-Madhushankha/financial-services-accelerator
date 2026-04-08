@@ -2012,9 +2012,9 @@ components:
     Authorization:
       type: object
       required:
-      - type
-      - status
-      - userId
+        - type
+        - status
+        - userId
       properties:
         userId:
           type: string
