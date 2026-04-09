@@ -1986,9 +1986,6 @@ components:
           type: string
     Authorization:
       type: object
-      required:
-      - type
-      - status
       properties:
         userId:
           type: string
