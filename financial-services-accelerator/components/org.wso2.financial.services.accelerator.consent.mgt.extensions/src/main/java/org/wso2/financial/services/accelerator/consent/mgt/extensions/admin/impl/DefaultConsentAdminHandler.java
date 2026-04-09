@@ -458,6 +458,7 @@ public class DefaultConsentAdminHandler implements ConsentAdminHandler {
     @Override
     public void handleSearchConsentAttributes(ConsentAdminData consentAdminData) throws ConsentException {
 
+        log.info("Handling consent attribute search request");
         JSONObject response = new JSONObject();
 
         Map queryParams = consentAdminData.getQueryParams();
@@ -468,9 +469,15 @@ public class DefaultConsentAdminHandler implements ConsentAdminHandler {
                 ConsentExtensionConstants.ATTRIBUTE_VALUE);
 
         if (StringUtils.isBlank(attributeKey) && StringUtils.isBlank(attributeValue)) {
-            log.error("Request missing the mandatory query parameters: attributeKey or attributeValue");
-            throw new ConsentException(ResponseStatus.BAD_REQUEST, "Mandatory query parameters 'attributeKey' or " +
-                    "'attributeValue' are not available");
+            log.error("Request missing the mandatory query parameters: key and value");
+            throw new ConsentException(ResponseStatus.BAD_REQUEST, "Mandatory query parameters 'key' and " +
+                    "'value' are not available");
+        }
+
+        if (StringUtils.isBlank(attributeKey)) {
+            log.error("Request missing the mandatory query parameters: key");
+            throw new ConsentException(ResponseStatus.BAD_REQUEST, "Mandatory query parameters 'key' are not" +
+                    " available");
         }
 
         ConsentCoreService consentCoreService = ConsentExtensionsDataHolder.getInstance().getConsentCoreService();
@@ -478,11 +485,20 @@ public class DefaultConsentAdminHandler implements ConsentAdminHandler {
         try {
             JSONArray searchResults = new JSONArray();
             if (attributeValue != null) {
+                if (log.isDebugEnabled()) {
+                    log.debug(String.format("Searching consents with attribute key: %s  and value: %s",
+                            attributeKey.replaceAll("\n\r", ""),
+                            attributeValue.replaceAll("\n\r", "")));
+                }
                 ArrayList<String> consentIds = consentCoreService
                         .getConsentIdByConsentAttributeNameAndValue(attributeKey, attributeValue);
                 searchResults = ConsentAdminUtils.constructConsentAttributeResponse(consentIds, attributeKey,
                         attributeValue);
             } else {
+                if (log.isDebugEnabled()) {
+                    log.debug(String.format("Searching consents with attribute key: %s",
+                            attributeKey.replaceAll("\n\r", "")));
+                }
                 Map<String, String> consentDetailsMap = consentCoreService.getConsentAttributesByName(attributeKey);
                 searchResults = ConsentAdminUtils.constructConsentAttributeResponse(consentDetailsMap, attributeKey);
             }
